@@ -20,12 +20,12 @@
           <div class="col-lg-4 col-md-6 footer-widget">
             <h3 class="widget-title">About Us</h3>
             <ul class="xs-footer-list">
-              <li><a href="index.html">About employee</a></li>
-              <li><a href="#">How it works</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Press</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="/">About employee</a></li>
+              <li><a href="/">How it works</a></li>
+              <li><a href="/">Careers</a></li>
+              <li><a href="/">Press</a></li>
+              <li><a href="/">Blog</a></li>
+              <li><a href="/contact">Contact</a></li>
             </ul>
           </div>
           <div class="col-lg-4 col-md-6 footer-widget">
@@ -51,9 +51,9 @@
           <div class="col-md-6">
             <nav class="xs-footer-menu">
               <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Help Desk</a></li>
-                <li><a href="#">Support</a></li>
+                <li><a href="/">FAQ</a></li>
+                <li><a href="/">Help Desk</a></li>
+                <li><a href="/">Support</a></li>
               </ul>
             </nav>
           </div>
