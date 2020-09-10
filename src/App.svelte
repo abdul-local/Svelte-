@@ -4,6 +4,7 @@ import Home from './pages/Home.svelte';
 import About from './pages/About.svelte';
 import Contact from './pages/Contact.svelte';
 import Donation from './pages/Donation-now.svelte';
+import Notfound from './pages/Notfound.svelte';
 let page,params;
 router('/',()=>(page=Home));
 router('/about',()=>(page=About));
@@ -49,7 +50,7 @@ function init() {
 		title: 'Snazzy!'
 	});
 }
-
+router('/*',()=>(page=Notfound));
 router.start();
 
 </script>
