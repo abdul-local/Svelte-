@@ -1,8 +1,29 @@
 <script>
 
      export let charities;
-</script>
+     function calculateFunded(pladge,target){
+       return Math.round( (1/(target/pladge)) *100);
+     }
+     function formatCurrency(nominal){
+       return nominal.toLocaleString('id-ID',{
+         style: 'currency',
+         currency: 'IDR',
+       });
+     }
+     function remainCalculate(date_end){
+       const delta = date_end -new Date();
+       const oneday = 24 *60*60*1000;
+       return Math.round(Math.abs(delta/oneday));
+     }
 
+</script>
+<style>
+  .xs-list-with-content{
+    font-size: 12px;
+  }
+</style>
+
+  
   <!-- popularCauses section -->
   <section id="popularcause" class="bg-gray waypoint-tigger xs-section-padding">
     <div class="container">
@@ -14,6 +35,8 @@
             raise capital from anyone.</p>
         </div><!-- .xs-heading-title END -->
       </div><!-- .row end -->
+      {#if charities !== undefined}
+      {#each charities as charity}
       <div class="row">
         <div class="col-lg-4 col-md-6">
           <!-- modal goes here -->
@@ -62,7 +85,7 @@
           <div class="xs-popular-item xs-box-shadow">
             <div class="xs-item-header">
 
-              <img src="assets/images/causes/causes_4.png" alt="">
+              <img src="{charity.thumbnail}" alt="">
 
               <div class="xs-skill-bar">
                 <div class="xs-skill-track">
@@ -73,27 +96,26 @@
             </div><!-- .xs-item-header END -->
             <div class="xs-item-content">
               <ul class="xs-simple-tag xs-mb-20">
-                <li><a href="">Food</a></li>
+                <li><a href="">{charity.category}</a></li>
               </ul>
 
-              <a href="#" class="xs-post-title xs-mb-30">Splash Drone 3 a Fully Waterproof Drone that
-                floats</a>
+              <a href="#" class="xs-post-title xs-mb-30">{charity.title}</a>
 
               <ul class="xs-list-with-content">
-                <li>$67,000<span>Pledged</span></li>
+                <li>{formatCurrency(charity.pladge)}<span>pladge</span></li>
                 <li><span class="number-percentage-count number-percentage" data-value="90"
-                    data-animation-duration="3500">0</span>% <span>Funded</span></li>
-                <li>3<span>Days to go</span></li>
+                    data-animation-duration="3500">{calculateFunded(charity.pladge, charity.target)}</span>% <span>Funded</span></li>
+                <li>{remainCalculate(charity.date_end)}<span>Days to go</span></li>
               </ul>
 
               <span class="xs-separetor"></span>
 
               <div class="row xs-margin-0">
                 <div class="xs-round-avatar">
-                  <img src="assets/images/avatar/avatar_1.jpg" alt="">
+                  <img src="{charity.profile_photo}" alt="">
                 </div>
                 <div class="xs-avatar-title">
-                  <a href="#"><span>By</span>Ema Watson</a>
+                  <a href="#"><span>By</span>{charity.profile_name}</a>
                 </div>
               </div>
 
@@ -107,18 +129,7 @@
           </div><!-- .xs-popular-item END -->
         </div>
       </div><!-- .row end -->
+      {/each}
+      {/if}
     </div><!-- .container end -->
   </section><!-- End popularCauses section -->
-
-<div>
-<h1>Daftar CharityList</h1>
-{#if charities !== undefined}
-<ul>
-    {#each charities as charity}
-    <li>{charity.title}-{charity.category}</li>
-    {/each}
-</ul>
-{:else}
-<h2>Data Belum tersedia</h2>
-{/if}
-</div>
