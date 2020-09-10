@@ -1,5 +1,8 @@
+
+  
 <script>
   import Modal from './Modal.svelte';
+  
 
      export let charities;
      
@@ -18,7 +21,6 @@
        return Math.round(Math.abs(delta/oneday));
      }
     
-
 </script>
 <style>
   .xs-list-with-content{
@@ -42,7 +44,7 @@
             raise capital from anyone.</p>
         </div><!-- .xs-heading-title END -->
       </div><!-- .row end -->
-      {#if charities !== undefined}
+      
       {#each charities as charity}
       <div class="row">
         <div class="col-lg-4 col-md-6">
@@ -68,9 +70,9 @@
               <a href="#" class="xs-post-title xs-mb-30">{charity.title}</a>
 
               <ul class="xs-list-with-content">
-                <li>{formatCurrency(charity.pladge)}<span>pladge</span></li>
+                <li>{formatCurrency(charity.pladged)}<span>pladge</span></li>
                 <li><span class="number-percentage-count number-percentage" data-value="90"
-                    data-animation-duration="3500">{calculateFunded(charity.pladge, charity.target)}</span>% <span>Funded</span></li>
+                    data-animation-duration="3500">{calculateFunded(charity.pladged, charity.target)}</span>% <span>Funded</span></li>
                 <li>{remainCalculate(charity.date_end)}<span>Days to go</span></li>
               </ul>
 
@@ -96,6 +98,6 @@
         </div>
       </div><!-- .row end -->
       {/each}
-      {/if}
+      
     </div><!-- .container end -->
   </section><!-- End popularCauses section -->

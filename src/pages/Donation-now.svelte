@@ -1,18 +1,37 @@
  
  <script>
+// import {onMount,onDestroy,beforeUpdate,afterUpdate} from 'svelte';
   import Header from '../components/Header.svelte';
  import Footer from '../components/Footer.svelte';
  import {charities} from '../data/charities';
  export let params;
-
- let data;
+let data;
+//  let data , seconds =0;
  //buat fungsi dapatkan id
  function getCharity(id){
      return charities.find(function (charity){
          return charity.id === parseInt(id);
      })
  }
-data = getCharity(params.id);
+ data = getCharity(params.id);
+ // menggunakan function on mount
+//  onMount(function(){
+//      setTimeout(function(){
+      
+//      },2500);
+//  })
+//  // menggunakan functiom setinterval
+//  const tick=setInterval(function(){
+//      seconds +=1;
+//      console.log(seconds);
+//  },1000);
+
+//  // ini bagus fungsinya untuk replace ulang lagi
+//  onDestroy(function(){
+//      console.log("On destroy");
+//      clearInterval(tick);
+//  })
+
 
  </script>
  <style>
