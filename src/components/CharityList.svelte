@@ -1,6 +1,8 @@
 <script>
+  import Modal from './Modal.svelte';
 
      export let charities;
+     let ismodal = false;
      function calculateFunded(pladge,target){
        return Math.round( (1/(target/pladge)) *100);
      }
@@ -15,11 +17,21 @@
        const oneday = 24 *60*60*1000;
        return Math.round(Math.abs(delta/oneday));
      }
+     function handleButton(){
+      ismodal = true
+     }
+     function modalClose(){
+       ismodal=false;
+     }
 
 </script>
 <style>
   .xs-list-with-content{
     font-size: 12px;
+  }
+  .show{
+    display: block;
+    background-color: rgb(0,0,0,0.45);
   }
 </style>
 
@@ -41,15 +53,17 @@
         <div class="col-lg-4 col-md-6">
           <!-- modal goes here -->
           <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalLabel" aria-hidden="true">
+          {#if ismodal == true }
+        <Modal>
+          <h1>ini modal</h1>
+          <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog"
+            aria-labelledby="exampleModalLabel">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Splash Drone 3 a Fully Waterproof
-                    Drone that
-                    floats</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    {charity.title}</h5>
+                  <button on:click={modalClose} type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
@@ -82,6 +96,8 @@
               </div>
             </div>
           </div>
+        </Modal>
+        {/if}
           <div class="xs-popular-item xs-box-shadow">
             <div class="xs-item-header">
 
@@ -90,7 +106,7 @@
               <div class="xs-skill-bar">
                 <div class="xs-skill-track">
                   <p><span class="number-percentage-count number-percentage" data-value="90"
-                      data-animation-duration="3500">0</span>%</p>
+                      data-animation-duration="3500">{calculateFunded(charity.pladge, charity.target)}</span>%</p>
                 </div>
               </div>
             </div><!-- .xs-item-header END -->
@@ -121,10 +137,10 @@
 
               <span class="xs-separetor"></span>
 
-              <a href="#" data-toggle="modal" data-target="#exampleModal"
-                class="btn btn-primary btn-block">
+              <button data-toggle="modal" data-target="#exampleModal"
+                class="btn btn-primary btn-block" on:click={handleButton}>
                 Donate This Cause
-              </a>
+              </button>
             </div><!-- .xs-item-content END -->
           </div><!-- .xs-popular-item END -->
         </div>
