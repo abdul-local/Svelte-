@@ -6,11 +6,13 @@ import Contact from './pages/Contact.svelte';
 import Donation from './pages/Donation-now.svelte';
 import Notfound from './pages/Notfound.svelte';
 import Success from './pages/Success.svelte';
+import Failure from './pages/Failure.svelte';
 let page,params;
-router('/',()=>(page=Home));
+router("/",()=>(page=Home));
 router ('/sucess',()=>(page=Success));
 router('/about',()=>(page=About));
 router('/contact',()=>(page=Contact));
+router("/error",()=>(page=Failure));
 router('/donation/:id',(ctx ,next )=>{
     params=ctx.params;
     next();
