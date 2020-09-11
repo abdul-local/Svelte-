@@ -18,6 +18,7 @@
        const oneday = 24 *60*60*1000;
        return Math.round(Math.abs(delta/oneday));
      }
+     
      export let charities;
 </script>
 <style>

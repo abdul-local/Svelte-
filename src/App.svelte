@@ -5,8 +5,10 @@ import About from './pages/About.svelte';
 import Contact from './pages/Contact.svelte';
 import Donation from './pages/Donation-now.svelte';
 import Notfound from './pages/Notfound.svelte';
+import Success from './pages/Success.svelte';
 let page,params;
 router('/',()=>(page=Home));
+router ('/sucess',()=>(page=Success));
 router('/about',()=>(page=About));
 router('/contact',()=>(page=Contact));
 router('/donation/:id',(ctx ,next )=>{

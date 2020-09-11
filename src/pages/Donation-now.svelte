@@ -4,15 +4,15 @@
   import Header from '../components/Header.svelte';
  import Footer from '../components/Footer.svelte';
 import { onMount } from 'svelte';
+import router, { redirect } from 'page';
 //  import {charities} from '../data/charities';
  export let params ;
 let charity ,amount, name, email,agree= false;
 //  let data , seconds =0;
  //buat fungsi dapatkan id
+
  async function getCharity(id){
-    //  return charities.find(function (charity){
-    //      return charity.id === parseInt(id);
-    //  })
+   
     const res =await  fetch(`https://charity-api-bwa.herokuapp.com/charities/${id}`);
     charity = await res.json();
  }
@@ -20,30 +20,30 @@ let charity ,amount, name, email,agree= false;
  onMount(  function(){
 
   charity = getCharity(params.id);
- })
- // menggunakan function on mount
-//  onMount(function(){
-//      setTimeout(function(){
-      
-//      },2500);
-//  })
-//  // menggunakan functiom setinterval
-//  const tick=setInterval(function(){
-//      seconds +=1;
-//      console.log(seconds);
-//  },1000);
 
-//  // ini bagus fungsinya untuk replace ulang lagi
-//  onDestroy(function(){
-//      console.log("On destroy");
-//      clearInterval(tick);
-//  })
+ })
+
 function handleButton(){
   console.log("Button Click");
 }
-function handleSubmite(event){
-// event.preventDefault();
-  console.log("Ini unutk submittesd form");
+async function handleSubmite(event){
+  
+  charity.pledged = charity.pledged + parseInt(amount);
+
+  try{
+    const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
+    {
+    method:"PUT",
+    headers:{ 'content-type' :'aplication/json'
+   },body: JSON.stringify(charity),
+  } 
+  );
+
+  console.log(res);
+  router.redirect('/sucess'); 
+  }catch(err){
+    console.log(err);
+  }
 }
 
  </script>
@@ -106,7 +106,7 @@ function handleSubmite(event){
                 </div><!-- .xs-heading end -->
                
                 <form on:submit|preventDefault={handleSubmite}
-                action="#" method="post" id="xs-donation-form" class=
+                action="#" method="" id="xs-donation-form" class=
                 "xs-donation-form" name="xs-donation-form">
                 <h3>{name}</h3>
                   <div class="xs-input-group">
@@ -148,7 +148,7 @@ function handleSubmite(event){
                       <label for="xs-donate-agree">I agree</label>
                       <span class="color-light-red">**</span>
                   </div>
-                  <button type="submit"on:button|once={handleSubmite} class="btn btn-warning"><span class="badge"><i class="fa fa-heart"></i></span> Donate now</button>
+                  <button type="submit" on:button={handleButton}  class="btn btn-warning"><span class="badge"><i class="fa fa-heart"></i></span> Donate now</button>
                 </form><!-- .xs-donation-form #xs-donation-form END -->
               </div>
             </div>
