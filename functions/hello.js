@@ -1,6 +1,6 @@
 exports.handler = function(event,context,callback){
     callback(null,{
-        statuCode:200,
+        statusCode:200,
         body:"hellow, Lamda function",
     });
 }
