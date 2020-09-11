@@ -4,7 +4,7 @@
   import Header from '../components/Header.svelte';
  import Footer from '../components/Footer.svelte';
 import { onMount } from 'svelte';
-import router, { redirect } from 'page';
+// import router, { redirect } from 'page';
 //  import {charities} from '../data/charities';
  export let params ;
 let charity ,amount, name, email,agree= false;
@@ -26,25 +26,27 @@ let charity ,amount, name, email,agree= false;
 function handleButton(){
   console.log("Button Click");
 }
-async function handleSubmite(event){
-  
+function handleSubmite(event){
   charity.pledged = charity.pledged + parseInt(amount);
+  console.log(charity);
 
-  try{
-    const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
-    {
-    method:"PUT",
-    headers:{ 'content-type' :'aplication/json'
-   },body: JSON.stringify(charity),
-  } 
-  );
-
-  console.log(res);
-  router.redirect('/sucess'); 
-  }catch(err){
-    console.log(err);
-  }
 }
+
+//   try{
+//     const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
+//     {
+//     method:"PUT",
+//     headers:{ 'content-type' :'aplication/json'
+//    },body: JSON.stringify(charity),
+//   } 
+//   );
+
+//   console.log(res);
+//   router.redirect('/sucess'); 
+//   }catch(err){
+//     console.log(err);
+//   }
+// }
 
  </script>
  <style>
