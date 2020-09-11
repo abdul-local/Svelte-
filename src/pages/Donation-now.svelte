@@ -4,7 +4,7 @@
   import Header from '../components/Header.svelte';
  import Footer from '../components/Footer.svelte';
 import { onMount } from 'svelte';
-// import router, { redirect } from 'page';
+import router, { redirect } from 'page';
 //  import {charities} from '../data/charities';
  export let params ;
 let charity ,amount, name, email,agree= false;
@@ -26,27 +26,25 @@ let charity ,amount, name, email,agree= false;
 function handleButton(){
   console.log("Button Click");
 }
-function handleSubmite(event){
-  charity.pledged = charity.pledged + parseInt(amount);
-  console.log(charity);
+async function handleSubmite(event){
 
+  charity.pledged = charity.pledged + parseInt(amount);
+    try{
+    const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
+    {
+    method:"PUT",
+    headers:{ 'content-type' :'application/json'
+   },body: JSON.stringify(charity),
+  } 
+  );
+
+  console.log(res);
+  router.redirect('/sucess'); 
+  }catch(err){
+    console.log(err);
+  }
 }
 
-//   try{
-//     const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
-//     {
-//     method:"PUT",
-//     headers:{ 'content-type' :'aplication/json'
-//    },body: JSON.stringify(charity),
-//   } 
-//   );
-
-//   console.log(res);
-//   router.redirect('/sucess'); 
-//   }catch(err){
-//     console.log(err);
-//   }
-// }
 
  </script>
  <style>
@@ -110,7 +108,7 @@ function handleSubmite(event){
                 <form on:submit|preventDefault={handleSubmite}
                 action="#" method="" id="xs-donation-form" class=
                 "xs-donation-form" name="xs-donation-form">
-                <h3>{name}</h3>
+      
                   <div class="xs-input-group">
               
                     <label for="xs-donate-name">Donation Amount <span class=
@@ -119,7 +117,8 @@ function handleSubmite(event){
                      name="amount" 
                      id="xs-donate-jumlah" 
                      class="form-control" 
-                     bind:value={amount} 
+                     bind:value={amount}
+                     required="true" 
                      placeholder="Your donation of rupiah"
                     >
                   </div><!-- .xs-input-group END -->
@@ -132,7 +131,7 @@ function handleSubmite(event){
                     bind:value={name} 
                     id="xs-donate-name" 
                     class="form-control"
-                    
+                    required="true" 
                     placeholder="Your awesomo Name">
                   </div>
                   <div class="xs-input-group">
@@ -140,17 +139,19 @@ function handleSubmite(event){
                     <input type="text"
                       name="email" id="xs-donate-email" class="form-control"
                       bind:value={email } 
+                      required="true" 
                       placeholder="email@awesome.com">
                   </div><!-- .xs-input-group END -->
                   <div class="xs-input-checkbox">
                       <input 
                       type="checkbox" 
-                      bind:value={agree} 
+                      bind:checked={agree} 
+                      required="true" 
                       name="agree" id="xs-donate-agree">
                       <label for="xs-donate-agree">I agree</label>
                       <span class="color-light-red">**</span>
                   </div>
-                  <button type="submit" on:button={handleButton}  class="btn btn-warning"><span class="badge"><i class="fa fa-heart"></i></span> Donate now</button>
+                  <button type="submit" disabled={!agree} class="btn btn-warning"><span class="badge"><i class="fa fa-heart"></i></span> Donate now</button>
                 </form><!-- .xs-donation-form #xs-donation-form END -->
               </div>
             </div>
