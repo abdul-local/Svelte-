@@ -2,11 +2,9 @@
   
 <script>
   import Modal from './Modal.svelte';
-  
-
-     export let charities;
+    
      
-     function calculateFunded(pladge,target){
+     function calculateFunded(target,pladge){
        return Math.round( (1/(target/pladge)) *100);
      }
      function formatCurrency(nominal){
@@ -20,7 +18,7 @@
        const oneday = 24 *60*60*1000;
        return Math.round(Math.abs(delta/oneday));
      }
-    
+     export let charities;
 </script>
 <style>
   .xs-list-with-content{
@@ -29,6 +27,9 @@
   .show{
     display: block;
     background-color: rgb(0,0,0,0.45);
+  }
+  .pledged{
+    margin-right: 16px;
   }
 </style>
 
@@ -44,9 +45,10 @@
             raise capital from anyone.</p>
         </div><!-- .xs-heading-title END -->
       </div><!-- .row end -->
+      <!-- {#if charities !== undefined} -->
       
-      {#each charities as charity}
       <div class="row">
+        {#each charities as charity}
         <div class="col-lg-4 col-md-6">
           <!-- modal goes here -->
           <!-- Modal -->
@@ -58,7 +60,7 @@
               <div class="xs-skill-bar">
                 <div class="xs-skill-track">
                   <p><span class="number-percentage-count number-percentage" data-value="90"
-                      data-animation-duration="3500">{calculateFunded(charity.pladge, charity.target)}</span>%</p>
+                      data-animation-duration="3500">{calculateFunded(charity.target, charity.pledged)}</span>%</p>
                 </div>
               </div>
             </div><!-- .xs-item-header END -->
@@ -70,9 +72,9 @@
               <a href="#" class="xs-post-title xs-mb-30">{charity.title}</a>
 
               <ul class="xs-list-with-content">
-                <li>{formatCurrency(charity.pladged)}<span>pladge</span></li>
+                <li class="pledged">{formatCurrency(charity.pledged)}<span>pledged</span></li>
                 <li><span class="number-percentage-count number-percentage" data-value="90"
-                    data-animation-duration="3500">{calculateFunded(charity.pladged, charity.target)}</span>% <span>Funded</span></li>
+                    data-animation-duration="3500">{calculateFunded(charity.target, charity.pledged)}</span>% <span>Funded</span></li>
                 <li>{remainCalculate(charity.date_end)}<span>Days to go</span></li>
               </ul>
 
@@ -96,8 +98,10 @@
             </div><!-- .xs-item-content END -->
           </div><!-- .xs-popular-item END -->
         </div>
+        {/each}
       </div><!-- .row end -->
-      {/each}
+      
+      <!-- {/if} -->
       
     </div><!-- .container end -->
   </section><!-- End popularCauses section -->
