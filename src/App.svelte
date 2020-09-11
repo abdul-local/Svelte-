@@ -16,7 +16,7 @@ router('/donation/:id',(ctx ,next )=>{
 	// When the window has finished loading create our google map below
 google.maps.event.addDomListener(window, 'load', init);
 function init() {
-	// Basic options for a simple Google Map
+	// Basic options for a simple Google Map ////
 	
 	var mapOptions = {
 		// How zoomed in you want the map to start at (always required)
