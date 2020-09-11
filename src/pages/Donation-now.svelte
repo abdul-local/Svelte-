@@ -5,23 +5,25 @@
  import Footer from '../components/Footer.svelte';
 import { onMount } from 'svelte';
 import router, { redirect } from 'page';
+import Spiner from '../components/Spiner.svelte';
 //  import {charities} from '../data/charities';
  export let params ;
-let charity ,amount, name, email,agree= false;
+let charity,amount, name, email,agree= false;
 //  let data , seconds =0;
  //buat fungsi dapatkan id
+ let data = getCharity(params.id);
 
  async function getCharity(id){
    
     const res =await  fetch(`https://charity-api-bwa.herokuapp.com/charities/${id}`);
-    charity = await res.json();
+    data = await res.json();
  }
 
- onMount(  function(){
+//  onMount(  function(){
 
-  charity = getCharity(params.id);
+//   charity = getCharity(params.id);
 
- })
+//  })
 
 function handleButton(){
   console.log("Button Click");
@@ -68,7 +70,10 @@ async function handleSubmite(event){
  <Header />
  <!-- welcome section -->
     <!--breadcumb start here-->
-    {#if charity }
+    {#await data}
+    <Spiner />
+    {:then charity}
+    <!-- {#if charity } -->
     <section class="xs-banner-inner-section parallax-window" style=
     "background-image:url('/assets/images/about_bg.jpg')">
       <div class="xs-black-overlay"></div>
@@ -159,5 +164,6 @@ async function handleSubmite(event){
         </div><!-- .container end -->
       </section><!-- End donation form section -->
     </main><!-- footer section start -->
-    {/if}
+    <!-- {/if} -->
+    {/await}
     <Footer />
