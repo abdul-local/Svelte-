@@ -1,6 +1,6 @@
 exports.handler = function (event, context, callback){
     // kita panggil clien midtans
-    const Midtrans=require('midtrans-client');
+    const Midtrans = require('midtrans-client');
     const headers ={
         'Access-Cotrol-Allowed-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
@@ -56,5 +56,5 @@ exports.handler = function (event, context, callback){
             headers,
             body:JSON.stringify({error: message}),
         });
-    })
+    });
 }
