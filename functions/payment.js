@@ -2,7 +2,7 @@ exports.handler = function (event, context, callback){
     // kita panggil clien midtans
     const Midtrans = require('midtrans-client');
     const headers ={
-        'Access-Cotrol-Allowed-Origin': '*',
+        'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
         'Access-Control-Allow-Methods' : 'GET,POST,PUT,DELETE',
     };
