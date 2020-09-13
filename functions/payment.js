@@ -12,7 +12,7 @@ exports.handler = function (event, context, callback){
         clientKey:process.env.MIDTRANS_CLIENT_KEY,
     });
     const {id, name, email, amount } = JSON.parse(event.body);
-    const names = name.split('');
+    const names = name.split(' ');
     let first_name, last_name;
     if(names && names.length >1){
         first_name = names[0];
@@ -22,9 +22,9 @@ exports.handler = function (event, context, callback){
         last_name= '';
     }
     const parameters= {
-        transaction_details:{
-            order_id:`abdul-${id}-${+new Date()}`,
-            gross_amout: parseInt(amount)
+        transaction_details: {
+            order_id:`BWA-${id}-${+new Date()}`,
+            gross_amount: parseInt(amount),
         },
         cunstomer_details: {
             first_name,
@@ -37,7 +37,7 @@ exports.handler = function (event, context, callback){
     }
     snap.createTransaction(parameters)
     .then(function(transaction){
-        const {token, redirect_url }= transaction;
+        const {token, redirect_url } = transaction;
         console.log(`Token: ${token}`);
         console.log(`Redirect URL: ${redirect_url}`);
 
@@ -54,7 +54,7 @@ exports.handler = function (event, context, callback){
         callback(null,{
             statusCode: 400,
             headers,
-            body:JSON.stringify({error: message}),
+            body:JSON.stringify({error:err.message}),
         });
     });
 }
