@@ -1,23 +1,20 @@
  
  <script>
   // import {onMount,onDestroy,beforeUpdate,afterUpdate} from 'svelte';
-    import Header from '../components/Header.svelte';
-   import Footer from '../components/Footer.svelte';
+  import {params} from "../stores/pages.js";
+  import {charity,getCharity} from '../stores/store.js';
+  import Header from '../components/Header.svelte';
+  import Footer from '../components/Footer.svelte';
   import { onMount } from 'svelte';
   import router, { redirect } from 'page';
   import Spiner from '../components/Spiner.svelte';
-  //  import {charities} from '../data/charities';
-   export let params ;
-  let charity,amount, name, email,agree= false;
-  //  let data , seconds =0;
-   //buat fungsi dapatkan id
-   let data = getCharity(params.id);
   
-   async function getCharity(id){
-     
-      const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${id}`);
-      data = await res.json();
-   }
+   
+  let amount, name, email,agree= false;
+  
+  getCharity($params.id);
+  
+   
   
   function handleButton(){
     console.log("Button Click");
@@ -27,7 +24,7 @@
     data.pledged = data.pledged + parseInt(amount);
   
       try{
-      const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${params.id}`,
+      const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
       headers:{ 'content-type' :'application/json'
@@ -39,7 +36,7 @@
       method:'POST',
       headers:{ 'content-type':'application/json'
     },body:JSON.stringify({
-      id:params.id,
+      id:$params.id,
       amount:parseInt(amount),
       name,
       email
@@ -77,9 +74,9 @@
    <Header />
    <!-- welcome section -->
       <!--breadcumb start here-->
-      {#await data}
+      {#if !$charity}
       <Spiner />
-      {:then charity}
+      {:else}
       <!-- {#if charity } -->
       <section class="xs-banner-inner-section parallax-window" style=
       "background-image:url('/assets/images/about_bg.jpg')">
@@ -87,7 +84,7 @@
         <div class="container">
           <div class="color-white xs-inner-banner-content">
             <h2>Donate Now</h2>
-            <p>{charity.title}</p>
+            <p>{$charity.title}</p>
             <ul class="xs-breadcumb">
               <li class="badge badge-pill badge-primary">
                 <a href="/" class="color-white">Home /</a> Donate
@@ -103,13 +100,13 @@
             <div class="row">
               <div class="col-lg-6">
                 <div class="xs-donation-form-images"><img src=
-                "{charity.thumbnail}" class="img-responsive" alt=
+                "{$charity.thumbnail}" class="img-responsive" alt=
                 "Family Images"></div>
               </div>
               <div class="col-lg-6">
                 <div class="xs-donation-form-wraper">
                   <div class="xs-heading xs-mb-30">
-                    <h2 class="xs-title">{charity.title}</h2>
+                    <h2 class="xs-title">{$charity.title}</h2>
                     <p class="small">To learn more about make donate charity
                       with us visit our "<span class="color-green">Contact
                         us</span>" site. By calling <span class=
@@ -172,5 +169,5 @@
         </section><!-- End donation form section -->
       </main><!-- footer section start -->
       <!-- {/if} -->
-      {/await}
+      {/if}
       <Footer />

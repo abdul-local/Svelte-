@@ -1,8 +1,9 @@
 
-  
 <script>
   import Modal from './Modal.svelte';
-    
+  import Spiner from './Spiner.svelte';
+  import {charities} from '../stores/store.js';
+  
      
      function calculateFunded(target,pladge){
        return Math.round( (1/(target/pladge)) *100);
@@ -19,7 +20,6 @@
        return Math.round(Math.abs(delta/oneday));
      }
      
-     export let charities;
 </script>
 <style>
   .xs-list-with-content{
@@ -49,7 +49,7 @@
       <!-- {#if charities !== undefined} -->
       
       <div class="row">
-        {#each charities as charity}
+        {#each $charities as charity} 
         <div class="col-lg-4 col-md-6">
           <!-- modal goes here -->
           <!-- Modal -->
@@ -99,6 +99,8 @@
             </div><!-- .xs-item-content END -->
           </div><!-- .xs-popular-item END -->
         </div>
+        {:else}
+        <Spiner />
         {/each}
       </div><!-- .row end -->
       
