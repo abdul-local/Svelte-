@@ -16,21 +16,22 @@
 
   getCharity($params.id);
   
-
+//cekkk
   function handleButton(){
     console.log("Button Click");
   }
   async function handleSubmite(event){
    
     agree= false;
-    const data= await getCharity($params.id);
-     data.pledged = newdata.pledged + parseInt(amount);
+
+    const newdata= await getCharity($params.id);
+     newdata.pledged = newdata.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
       headers:{ 'content-type' :'application/json'
-     },body: JSON.stringify(data),
+     },body: JSON.stringify(newdata),
     } 
     );
     
