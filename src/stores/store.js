@@ -20,9 +20,9 @@ export async function getCharity(id){
     const data = await res.json();
     charity.set(data);
     if(res.ok){
-		return res;
+		return data;
 	}else{
-		throw new Error(res);
+		throw new Error(data);
 	}
  }
  getData();
