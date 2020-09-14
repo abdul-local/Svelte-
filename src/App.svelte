@@ -16,13 +16,14 @@
 	router('/about',()=>($page=About));
 	router('/contact',()=>($page=Contact));
 	router("/error",()=>($page=Failure));
-	router('/donation/:id',(ctx ,next )=>{
+	router("/donation/:id",(ctx ,next )=>{
 		$params=ctx.params;
 		next();
 	},()=>($page=Donation));
 	
-	router('/*',()=>($page=Notfound));
+	router('/*',()=>($page = Notfound));
 	router.start();
 	
 	</script>
+
 	<svelte:component this={$page} {ready}/>

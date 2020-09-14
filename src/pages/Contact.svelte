@@ -1,8 +1,9 @@
 <script>
    import Header from '../components/Header.svelte';
    import Map from '../components/Map.svelte';
-    import Footer from '../components/Footer.svelte';  
+  import Footer from '../components/Footer.svelte';  
   export let ready;
+
 </script>
 <svelte:head>
   <script  defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k&callback=initMap"></script>
@@ -61,7 +62,6 @@
             <Map />
             {/if}
           </div>
-        
         </div><!-- .row end -->
       </div><!-- .xs-contact-container END -->
     </div><!-- .container end -->

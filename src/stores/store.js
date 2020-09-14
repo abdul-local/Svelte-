@@ -19,10 +19,10 @@ export async function getCharity(id){
     const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${id}`);
     const data = await res.json();
     charity.set(data);
-    if(data.ok){
-		return data;
+    if(res.ok){
+		return res;
 	}else{
-		throw new Error(data);
+		throw new Error(res);
 	}
  }
  getData();

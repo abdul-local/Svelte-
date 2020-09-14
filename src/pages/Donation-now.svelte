@@ -1,6 +1,5 @@
  
  <script>
-  // import {onMount,onDestroy,beforeUpdate,afterUpdate} from 'svelte';
   import {params} from "../stores/pages.js";
   import {charity,getCharity} from '../stores/store.js';
   import Header from '../components/Header.svelte';
@@ -16,19 +15,18 @@
   contribute  =Math.floor((parseInt(amount)/$charity.target)*100);
  }
 
-//cekkk
   function handleButton(){
     console.log("Button Click");
   }
   async function handleSubmite(event){
-
+    agree=false;
     const newdata= await getCharity($params.id);
      newdata.pledged = newdata.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
-      headers:{ 'content-type' :'application/json'
+      headers:{ "content-type":"application/json"
      },body: JSON.stringify(newdata),
     } 
     );
