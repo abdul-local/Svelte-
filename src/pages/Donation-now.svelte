@@ -7,10 +7,12 @@
   import router, { redirect } from 'page';
   import Spiner from '../components/Spiner.svelte';
   
- 
-  
-   
-  let contribute=0, amount=0, name, email,agree= false;
+  let amount = 0,
+    name,
+    email,
+    agree = false,
+    contribute = 0;
+
   $:if($charity){
   contribute  =Math.floor((parseInt(amount)/$charity.target)*100);
  }
@@ -28,19 +30,19 @@
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
-      headers:{ "content-type":"application/json"
+      headers:{ 'content-type':'application/json',
      },body: JSON.stringify(newData),
     } 
     );
     
     const resMidtrans = await fetch(`/.netlify/functions/payment`,{
       method:'POST',
-      headers:{ 'content-type':'application/json'
+      headers:{ 'content-type':'application/json',
     },body:JSON.stringify({
       id:$params.id,
       amount:parseInt(amount),
       name,
-      email
+      email,
     }),
   });
     const midtrans= await resMidtrans.json();
@@ -117,7 +119,7 @@
                   </div><!-- .xs-heading end -->
                  
                   <form on:submit|preventDefault={handleSubmite}
-                  action="#" method="" id="xs-donation-form" class=
+                  action="#" method="post" id="xs-donation-form" class=
                   "xs-donation-form" name="xs-donation-form">
         
                     <div class="xs-input-group">
