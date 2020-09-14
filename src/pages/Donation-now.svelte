@@ -8,21 +8,19 @@
   import router, { redirect } from 'page';
   import Spiner from '../components/Spiner.svelte';
   
+  getCharity($params.id);
+  
    
   let contribute=0, amount=0, name, email,agree= false;
   $:if($charity){
   contribute  =Math.floor((parseInt(amount)/$charity.target)*100);
  }
 
-  getCharity($params.id);
-  
 //cekkk
   function handleButton(){
     console.log("Button Click");
   }
   async function handleSubmite(event){
-   
-    agree= false;
 
     const newdata= await getCharity($params.id);
      newdata.pledged = newdata.pledged + parseInt(amount);
