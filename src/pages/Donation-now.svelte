@@ -7,7 +7,7 @@
   import router, { redirect } from 'page';
   import Spiner from '../components/Spiner.svelte';
   
-  getCharity($params.id);
+ 
   
    
   let contribute=0, amount=0, name, email,agree= false;
@@ -15,13 +15,15 @@
   contribute  =Math.floor((parseInt(amount)/$charity.target)*100);
  }
 
+ getCharity($params.id);
+
   function handleButton(){
     console.log("Button Click");
   }
   async function handleSubmite(event){
-    agree=false;
-    const newdata= await getCharity($params.id);
-     newdata.pledged = newdata.pledged + parseInt(amount);
+    agree = false;
+    const newData= await getCharity($params.id);
+     newData.pledged = newdata.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {

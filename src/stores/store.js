@@ -5,7 +5,8 @@ export const charity = writable({});
 async function getData(){
 	const res = await fetch('https://charity-api-bwa.herokuapp.com/charities');
      const data = await res.json();
-     charities.set(data);
+	 charities.set(data);
+	 
 	if(res.ok){
 		return data;
 	}else{
