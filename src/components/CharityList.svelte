@@ -3,7 +3,7 @@
   import {fade, slide, fly} from 'svelte/transition';
   import Modal from './Modal.svelte';
   import Spiner from './Spiner.svelte';
-  import {charities} from '../stores/store.js';
+  import {charities, charity} from '../stores/store.js';
   
      
      function calculateFunded(target,pladge){
