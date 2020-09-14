@@ -2,7 +2,8 @@ import { writable } from 'svelte/store';
 
 export const charities = writable([]);
 export const charity = writable({});
-async function getData(){
+
+export async function getData(){
 	const res = await fetch('https://charity-api-bwa.herokuapp.com/charities');
      const data = await res.json();
 	 charities.set(data);

@@ -1,6 +1,6 @@
 <script>
     import {onMount} from 'svelte';
-    import {mapOptions } from '../config';
+    import {mapOptions } from '../config.js';
 
     let container,map;
     onMount(function(){

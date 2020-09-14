@@ -6,7 +6,11 @@
 
 </script>
 <svelte:head>
-  <script  defer async src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k&callback=initMap"></script>
+  <script
+    defer
+    async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy7becgYuLwns3uumNm6WdBYkBpLfy44k&callback=initMap">
+  </script>
 </svelte:head>
   <Header />
 <!-- welcome section -->

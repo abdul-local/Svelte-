@@ -3,9 +3,9 @@
   import {params} from "../stores/pages.js";
   import {charity,getCharity} from '../stores/store.js';
   import Header from '../components/Header.svelte';
-  import Footer from '../components/Footer.svelte';
-  import router, { redirect } from 'page';
-  import Spiner from '../components/Spiner.svelte';
+  import Footer from "../components/Footer.svelte";
+  import router, { redirect } from "page";
+  import Spiner from "../components/Spiner.svelte";
   
   let amount = 0,
     name,
@@ -22,22 +22,24 @@
   function handleButton(){
     console.log("Button Click");
   }
-  async function handleSubmite(event){
+   async function handleSubmite(event){
     agree = false;
     const newData= await getCharity($params.id);
+    
      newData.pledged = newData.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
-      headers:{ 'content-type':'application/json',
-     },body: JSON.stringify(newData),
+      headers:{ "content-type":"application/json",
+     },
+     body: JSON.stringify(newData),
     } 
     );
     
     const resMidtrans = await fetch(`/.netlify/functions/payment`,{
-      method:'POST',
-      headers:{ 'content-type':'application/json',
+      method:"POST",
+      headers:{ "content-type":"application/json",
     },body:JSON.stringify({
       id:$params.id,
       amount:parseInt(amount),
@@ -53,7 +55,6 @@
       console.log(err);
     }
   }
-  
   
    </script>
    <style>
