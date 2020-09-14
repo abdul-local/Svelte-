@@ -23,7 +23,7 @@
   async function handleSubmite(event){
     agree = false;
     const newData= await getCharity($params.id);
-     newData.pledged = newdata.pledged + parseInt(amount);
+     newData.pledged = newData.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
