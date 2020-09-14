@@ -5,29 +5,32 @@
   import {charity,getCharity} from '../stores/store.js';
   import Header from '../components/Header.svelte';
   import Footer from '../components/Footer.svelte';
-  import { onMount } from 'svelte';
   import router, { redirect } from 'page';
   import Spiner from '../components/Spiner.svelte';
   
    
-  let amount, name, email,agree= false;
-  
+  let contribute=0, amount=0, name, email,agree= false;
+  $:if($charity){
+  contribute  =Math.floor((parseInt(amount)/$charity.target)*100);
+ }
+
   getCharity($params.id);
   
-   
-  
+
   function handleButton(){
     console.log("Button Click");
   }
   async function handleSubmite(event){
-    const newdata= await getCharity($params.id);
-     newdata.pledged = newdata.pledged + parseInt(amount);
+   
+    agree= false;
+    data= await getCharity($params.id);
+     data.pledged = newdata.pledged + parseInt(amount);
       try{
       const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${$params.id}`,
       {
       method:"PUT",
       headers:{ 'content-type' :'application/json'
-     },body: JSON.stringify(newdata),
+     },body: JSON.stringify(data),
     } 
     );
     
@@ -109,8 +112,9 @@
                     <p class="small">To learn more about make donate charity
                       with us visit our "<span class="color-green">Contact
                         us</span>" site. By calling <span class=
-                        "color-green">+44(0) 800 883 8450</span>.</p><span class=
-                        "xs-separetor v2"></span>
+                        "color-green">+44(0) 800 883 8450</span>.</p>
+                        <h5>Your donation you will be contribution <strong>{contribute}%</strong> of total donation</h5>
+                        <span class="xs-separetor v2"></span>
                   </div><!-- .xs-heading end -->
                  
                   <form on:submit|preventDefault={handleSubmite}
