@@ -13,7 +13,7 @@ async function getData(){
 	}
 }
 
-getData();
+
 export async function getCharity(id){
    
     const res = await fetch(`https://charity-api-bwa.herokuapp.com/charities/${id}`);
@@ -25,4 +25,4 @@ export async function getCharity(id){
 		throw new Error(data);
 	}
  }
- 
+ getData();
