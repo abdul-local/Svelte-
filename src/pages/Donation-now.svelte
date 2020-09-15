@@ -80,7 +80,7 @@
 {:else}
   <section
     class="xs-banner-inner-section parallax-window"
-    style="background-image:url('/assets/images/backgrounds/kat-yukawa-K0E6E0a0R3A-unsplash.jpg')">
+    style="background-image:url('/assets/images/family.jpg')">
     <div class="xs-black-overlay" />
     <div class="container">
       <div class="color-white xs-inner-banner-content">
